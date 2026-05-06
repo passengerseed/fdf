@@ -1,0 +1,52 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2026/03/08 14:29:59 by lrouchon          #+#    #+#              #
+#    Updated: 2026/05/06 18:44:28 by lrouchon         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g3 -Wincompatible-pointer-types
+
+LFLAGS = -L -lmlx -lXext -lX11
+
+NAME = fdf
+
+SRC_PATH = src/
+SRC = $(SRC_PATH)fdf.c \
+	$(SRC_PATH)parser.c \
+	$(SRC_PATH)draw.c \
+	$(SRC_PATH)init.c \
+	$(SRC_PATH)events.c
+
+LIBS = libft/libft.a \
+		minilibx-linux/libmlx_Linux.a
+
+INCLUDES = $(SRC_PATH)fdf.h
+
+OBJ = $(SRC:.c=.o)
+
+all: libs $(NAME)
+
+libs :
+	make -C libft/
+
+$(NAME): $(OBJ) $(LIBS)
+	$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) $(LIBS) -o $(NAME) -lm
+
+clean:
+	rm -f $(OBJ)
+	make clean -C libft/
+
+fclean: clean
+	rm -f $(NAME)
+	make fclean -C libft/
+
+re: fclean all
+
+.PHONY: all clean fclean re
