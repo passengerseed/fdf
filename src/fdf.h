@@ -6,7 +6,7 @@
 /*   By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/08 14:29:53 by lrouchon          #+#    #+#             */
-/*   Updated: 2026/05/06 19:14:37 by lrouchon         ###   ########.fr       */
+/*   Updated: 2026/05/07 19:40:36 by lrouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,15 @@ typedef struct s_fdf
 	char	*map_path;
 }	t_fdf;
 
-void			exit_error(char *error_str, int status);
+void			error(char *error_str);
 t_fdf			*init_fdf(int argc, const char **argv);
 int				deal_mouse(int mouse, int x, int y, void *param);
 int				deal_key(int key, void *param);
-void			exit_free(t_fdf	*fdf_struct, int status);
+void			exit_free(t_fdf	*fdf_struct);
 int				count_lines(char *path);
 int				count_columns(char *path);
-void			init_map(char *path, t_fdf *fdf_struct);
-void			set_properties(t_fdf *fdf_struct, int offset[2], int scale, int z_scale);
+int				init_map(char *path, t_fdf *fdf_struct);
+void			set_properties(t_fdf *fdf_struct, int scale, int z_scale);
 void			clear_map(t_fdf *fdf_struct);
 t_point			*init_point(int x, int y, char *z, t_fdf *fdf_struct);
 void			draw_pixel(t_fdf *fdf_struct, int x, int y, unsigned int color);

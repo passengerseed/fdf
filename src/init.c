@@ -6,7 +6,7 @@
 /*   By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 17:11:09 by lrouchon          #+#    #+#             */
-/*   Updated: 2026/05/06 19:03:50 by lrouchon         ###   ########.fr       */
+/*   Updated: 2026/05/07 20:35:52 by lrouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,23 @@ t_fdf	*init_fdf(int argc, const char **argv)
 	(void)argc;
 	(void)argv;
 	new_fdf = malloc(sizeof(t_fdf));
+	if (!new_fdf)
+		return (NULL);
+	new_fdf->img_ptr = NULL;
+	new_fdf->content = NULL;
 	new_fdf->mlx_ptr = mlx_init();
 	if (!new_fdf->mlx_ptr)
-	{
-		free(new_fdf);
-		exit_error("couldn't initialize mlx_ptr (init_fdf).", EXIT_FAILURE);
-	}
+		return (free(new_fdf), NULL);
 	new_fdf->win_ptr = mlx_new_window(new_fdf->mlx_ptr, MIN_WIDTH, MIN_HEIGHT, "fdf");
 	if (!new_fdf->win_ptr)
-	{
-		free(new_fdf);
-		exit_error("couldn't initialize win_ptr (init_fdf).", EXIT_FAILURE);
-	}
+			return (free(new_fdf->mlx_ptr), free(new_fdf), NULL);
 	return (new_fdf);
 }
 
-void	set_properties(t_fdf *fdf_struct, int offset[2], int scale, int z_scale)
+void	set_properties(t_fdf *fdf_struct, int scale, int z_scale)
 {
-	fdf_struct->offset[0] = offset[0];
-	fdf_struct->offset[1] = offset[1];
+	fdf_struct->offset[0] = MIN_WIDTH / 2;
+	fdf_struct->offset[1] = MIN_HEIGHT / 2;
 	fdf_struct->scale = scale;
 	fdf_struct->z_scale = z_scale;
 	fdf_struct->angle = ISOMETRIC;
@@ -64,8 +62,6 @@ t_point		*init_point(int x, int y, char *z, t_fdf *fdf_struct)
 		new_point->color = WHITE;
 		z_tmp = ft_atoi(z);
 	}
-	// new_point->xyz[0] = (x - y) * cos(ISOMETRIC) * fdf_struct->scale + fdf_struct->offset[0];
-	// new_point->xyz[1] = (x + y) * sin(ISOMETRIC) * fdf_struct->scale - z_tmp * fdf_struct->z_scale + fdf_struct->offset[1];
 	new_point->xyz[0] = x;
 	new_point->xyz[1] = y;
 	new_point->xyz[2] = z_tmp;

@@ -6,7 +6,7 @@
 /*   By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 17:54:06 by lrouchon          #+#    #+#             */
-/*   Updated: 2026/05/06 19:07:14 by lrouchon         ###   ########.fr       */
+/*   Updated: 2026/05/07 20:39:20 by lrouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	deal_key(int key, void *param)
 	fdf_struct = (t_fdf *)param;
 	ft_printf("%d\n", key);
 	if (key == KEY_ESC)
-		exit_free(fdf_struct, EXIT_SUCCESS);
+		return (exit_free(param), 0);
 	if (key == KEY_ZOOM_IN)
 	{
 		fdf_struct->scale++;

@@ -6,7 +6,7 @@
 /*   By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 17:52:59 by lrouchon          #+#    #+#             */
-/*   Updated: 2026/05/06 17:25:59 by lrouchon         ###   ########.fr       */
+/*   Updated: 2026/05/07 20:37:56 by lrouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,21 @@ int	count_columns(char *path)
 	int		fd;
 
 	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return (-1);
 	line = get_next_line(fd);
+	if (!line)
+		return (close(fd), -1);
 	split_line = ft_split(line, ' ');
+	if (!split_line)
+		return (close(fd), free(line), -1);
 	i = 0;
 	while (split_line[i])
 		i++;
-	return (close(fd), ft_freearr(split_line), free(line), i);
+	return (close(fd), free(line), ft_freearr(split_line), i);
 }
 
-void	init_map(char *path, t_fdf *fdf_struct)
+int	init_map(char *path, t_fdf *fdf_struct)
 {
 	int		fd;
 	char	*line;
@@ -58,13 +64,21 @@ void	init_map(char *path, t_fdf *fdf_struct)
 	fdf_struct->lines = count_lines(path);
 	fdf_struct->columns = count_columns(path);
 	fdf_struct->content = malloc(sizeof(t_point **) * (fdf_struct->lines + 1));
+	if (!fdf_struct->content)
+		return (-1);
 	fd = open(path, O_RDONLY);
 	i = 0;
 	while (i < fdf_struct->lines)
 	{
 		line = get_next_line(fd);
+		if (!line)
+			return (close(fd), clear_map(fdf_struct), -1);
 		split_line = ft_split(line, ' ');
+		if (!split_line)
+			return (close(fd), free(line), clear_map(fdf_struct), -1);
 		fdf_struct->content[i] = malloc(sizeof(t_point *) * (fdf_struct->columns + 1));
+		if (!fdf_struct->content[i])
+			return (close(fd), free(line), clear_map(fdf_struct), -1);
 		j = 0;
 		while (j < fdf_struct->columns)
 		{
@@ -77,7 +91,7 @@ void	init_map(char *path, t_fdf *fdf_struct)
 		i++;
 	}
 	fdf_struct->content[i] = NULL;
-	close(fd);
+	return (close(fd), 0);
 }
 
 void	clear_map(t_fdf *fdf_struct)
@@ -85,6 +99,8 @@ void	clear_map(t_fdf *fdf_struct)
 	int	i;
 	int	j;
 
+	if (!fdf_struct->content)
+		return ;
 	i = -1;
 	while (fdf_struct->content[++i])
 	{
@@ -94,5 +110,5 @@ void	clear_map(t_fdf *fdf_struct)
 		free(fdf_struct->content[i]);
 	}
 	free(fdf_struct->content);
-	free(fdf_struct);
+	fdf_struct->content = NULL;
 }
