@@ -6,7 +6,7 @@
 /*   By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 17:11:09 by lrouchon          #+#    #+#             */
-/*   Updated: 2026/05/07 20:35:52 by lrouchon         ###   ########.fr       */
+/*   Updated: 2026/05/08 15:52:53 by lrouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ t_fdf	*init_fdf(int argc, const char **argv)
 	new_fdf->mlx_ptr = mlx_init();
 	if (!new_fdf->mlx_ptr)
 		return (free(new_fdf), NULL);
-	new_fdf->win_ptr = mlx_new_window(new_fdf->mlx_ptr, MIN_WIDTH, MIN_HEIGHT, "fdf");
+	new_fdf->win_ptr = mlx_new_window(new_fdf->mlx_ptr,
+			MIN_WIDTH, MIN_HEIGHT, "fdf");
 	if (!new_fdf->win_ptr)
-			return (free(new_fdf->mlx_ptr), free(new_fdf), NULL);
+		return (free(new_fdf->mlx_ptr), free(new_fdf), NULL);
 	return (new_fdf);
 }
 
@@ -41,7 +42,7 @@ void	set_properties(t_fdf *fdf_struct, int scale, int z_scale)
 	fdf_struct->angle = ISOMETRIC;
 }
 
-t_point		*init_point(int x, int y, char *z, t_fdf *fdf_struct)
+t_point	*init_point(int x, int y, char *z, t_fdf *fdf_struct)
 {
 	t_point	*new_point;
 	int		z_tmp;
@@ -56,6 +57,7 @@ t_point		*init_point(int x, int y, char *z, t_fdf *fdf_struct)
 		split_point = ft_split(z, ',');
 		z_tmp = ft_atoi(split_point[0]);
 		new_point->color = *(int *)split_point[1];
+		ft_freearr(split_point);
 	}
 	else
 	{

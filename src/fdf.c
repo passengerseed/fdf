@@ -6,7 +6,7 @@
 /*   By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/08 14:29:57 by lrouchon          #+#    #+#             */
-/*   Updated: 2026/05/07 20:39:20 by lrouchon         ###   ########.fr       */
+/*   Updated: 2026/05/08 15:51:30 by lrouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,18 @@ int	main(int argc, const char **argv)
 	t_fdf			*fdf_struct;
 
 	if (argc <= 1)
-		return(error("not enough arguments"), EXIT_FAILURE);
+		return (error("not enough arguments"), EXIT_FAILURE);
 	if (check_map((char *)argv[1]) == -1)
-		return(error("invalid map file"), EXIT_FAILURE);
+		return (error("invalid map file"), EXIT_FAILURE);
 	fdf_struct = init_fdf(argc, argv);
 	if (!fdf_struct)
 		return (error("couldn't initialize mlx"), EXIT_FAILURE);
 	set_properties(fdf_struct, 20, 2);
 	fdf_struct->map_path = (char *)argv[1];
 	if (init_map(fdf_struct->map_path, fdf_struct) == -1)
-		return (exit_free(fdf_struct), error("couldn't initialize mlx"), EXIT_FAILURE);
+		return (exit_free(fdf_struct),
+			error("couldn't initialize mlx"), EXIT_FAILURE);
 	draw_image(fdf_struct);
-	// MANAGE EVENTS
 	mlx_mouse_hook(fdf_struct->win_ptr, deal_mouse, (void *)fdf_struct);
 	mlx_key_hook(fdf_struct->win_ptr, deal_key, (void *)fdf_struct);
 	mlx_loop(fdf_struct->mlx_ptr);

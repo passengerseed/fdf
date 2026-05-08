@@ -6,7 +6,7 @@
 /*   By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/08 14:29:53 by lrouchon          #+#    #+#             */
-/*   Updated: 2026/05/07 19:40:36 by lrouchon         ###   ########.fr       */
+/*   Updated: 2026/05/08 16:29:31 by lrouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,21 @@
 # define ISOMETRIC 0.523599
 # define PARALLEL 0.0
 
-typedef	struct s_point
+typedef struct s_point
 {
 	int				xyz[3];
 	unsigned int	color;
 }	t_point;
+
+typedef struct s_line
+{
+	int	project_a[2];
+	int	project_b[2];
+	int	direction[2];
+	int	slope[2];
+	int	err;
+	int	e2;
+}	t_line;
 
 typedef struct s_fdf
 {
@@ -88,5 +98,11 @@ void			draw_map(t_fdf *fdf_struct);
 void			draw_image(t_fdf *fdf_struct);
 int				project_x(int xyz[3], t_fdf *fdf_struct);
 int				project_y(int xyz[3], t_fdf *fdf_struct);
+int				get_slope(int a, int b);
+void			line_loop(t_fdf *fdf_struct, t_line	*line, t_point *a);
+void			drain_gnl_fd(int fd);
+int				count_lines(char *path);
+int				count_columns(char *path);
+int				map_loop(int fd, int i, t_fdf *fdf_struct);
 
 #endif /* FDF_H */

@@ -6,7 +6,7 @@
 /*   By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 17:54:06 by lrouchon          #+#    #+#             */
-/*   Updated: 2026/05/07 20:39:20 by lrouchon         ###   ########.fr       */
+/*   Updated: 2026/05/08 15:50:32 by lrouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	deal_mouse(int mouse, int x, int y, void *param)
 	(void)y;
 	fdf_struct = (t_fdf *)param;
 	(void)fdf_struct;
-	ft_printf("%d\n", mouse);
 	if (mouse == 5)
 	{
 		fdf_struct->z_scale--;
@@ -39,17 +38,12 @@ int	deal_key(int key, void *param)
 	t_fdf	*fdf_struct;
 
 	fdf_struct = (t_fdf *)param;
-	ft_printf("%d\n", key);
 	if (key == KEY_ESC)
 		return (exit_free(param), 0);
 	if (key == KEY_ZOOM_IN)
-	{
 		fdf_struct->scale++;
-	}
 	if (key == KEY_ZOOM_OUT)
-	{
 		fdf_struct->scale--;
-	}
 	if (key == KEY_DOWN)
 		fdf_struct->offset[1] -= 10;
 	if (key == KEY_UP)
@@ -65,5 +59,3 @@ int	deal_key(int key, void *param)
 	draw_image(fdf_struct);
 	return (0);
 }
-
-

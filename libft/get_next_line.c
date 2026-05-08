@@ -6,7 +6,7 @@
 /*   By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 17:01:24 by lrouchon          #+#    #+#             */
-/*   Updated: 2026/05/07 20:21:47 by lrouchon         ###   ########.fr       */
+/*   Updated: 2026/05/08 15:35:09 by lrouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@ static char	*extract_rem(char *buf)
 		i++;
 	if (!buf[i])
 		return (free(buf), NULL);
+	i++;
+	if (!buf[i])
+		return (free(buf), NULL);
 	str_rem = ft_calloc(sizeof(char), ft_strlen(buf) - i + 1);
 	if (!str_rem)
 		return (free(buf), NULL);
-	i++;
 	while (buf[i])
 		str_rem[j++] = buf[i++];
 	free(buf);

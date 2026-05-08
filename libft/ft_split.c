@@ -6,7 +6,7 @@
 /*   By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:10:56 by lrouchon          #+#    #+#             */
-/*   Updated: 2026/03/18 16:04:06 by lrouchon         ###   ########.fr       */
+/*   Updated: 2026/05/08 16:49:26 by lrouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	ft_splitcpy(char **arr, char const *s, char c)
 	j = 0;
 	while (s[i])
 	{
-		if (s[i] != c && (s[i - 1] == c || i == 0))
+		if (s[i] != c && (i == 0 || s[i - 1] == c))
 		{
 			j = 0;
 			while (s[i + j] != c && s[i + j])
