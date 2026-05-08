@@ -6,7 +6,7 @@
 /*   By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/08 14:29:53 by lrouchon          #+#    #+#             */
-/*   Updated: 2026/05/08 18:51:06 by lrouchon         ###   ########.fr       */
+/*   Updated: 2026/05/08 19:04:47 by lrouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ t_fdf			*init_fdf(int argc, const char **argv);
 int				deal_mouse(int mouse, int x, int y, void *param);
 int				deal_key(int key, void *param);
 void			exit_free(t_fdf	*fdf_struct);
-int				count_lines(char *path);
-int				count_columns(char *path);
 int				init_map(char *path, t_fdf *fdf_struct);
 void			set_properties(t_fdf *fdf_struct, int scale, int z_scale);
 void			clear_map(t_fdf *fdf_struct);
@@ -102,8 +100,8 @@ int				project_y(int xyz[3], t_fdf *fdf_struct);
 int				get_slope(int a, int b);
 void			line_loop(t_fdf *fdf_struct, t_line	*line, t_point *a);
 void			drain_gnl_fd(int fd);
-int				count_lines(char *path);
-int				count_columns(char *path);
+void			count_lines(char *path, t_fdf *fdf_struct);
+int				count_columns(char *line);
 int				map_loop(int fd, int i, t_fdf *fdf_struct);
 
 #endif /* FDF_H */

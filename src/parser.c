@@ -6,7 +6,7 @@
 /*   By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 17:52:59 by lrouchon          #+#    #+#             */
-/*   Updated: 2026/05/08 18:56:43 by lrouchon         ###   ########.fr       */
+/*   Updated: 2026/05/08 19:11:12 by lrouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,8 @@ int	init_map(char *path, t_fdf *fdf_struct)
 	int		fd;
 	int		i;
 
-	fdf_struct->lines = count_lines(path);
-	fdf_struct->columns = count_columns(path);
-	if (fdf_struct->lines == -1 || fdf_struct->columns == -1)
+	count_lines(path, fdf_struct);
+	if (fdf_struct->lines <= 0 || fdf_struct->columns <= 0)
 		return (-1);
 	fdf_struct->content = ft_calloc(sizeof(t_point **), fdf_struct->lines + 1);
 	if (!fdf_struct->content)

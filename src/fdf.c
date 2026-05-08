@@ -6,7 +6,7 @@
 /*   By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/08 14:29:57 by lrouchon          #+#    #+#             */
-/*   Updated: 2026/05/08 17:55:25 by lrouchon         ###   ########.fr       */
+/*   Updated: 2026/05/08 19:10:43 by lrouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	main(int argc, const char **argv)
 	fdf_struct->map_path = (char *)argv[1];
 	if (init_map(fdf_struct->map_path, fdf_struct) == -1)
 		return (exit_free(fdf_struct),
-			error("couldn't initialize mlx"), EXIT_FAILURE);
+			error("couldn't initialize map"), EXIT_FAILURE);
 	draw_image(fdf_struct);
 	mlx_hook(fdf_struct->win_ptr, DestroyNotify, 0, (void *)exit_free,
 		(void *)fdf_struct);

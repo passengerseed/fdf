@@ -6,7 +6,7 @@
 /*   By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 17:11:09 by lrouchon          #+#    #+#             */
-/*   Updated: 2026/05/08 15:52:53 by lrouchon         ###   ########.fr       */
+/*   Updated: 2026/05/08 19:08:36 by lrouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_fdf	*init_fdf(int argc, const char **argv)
 	new_fdf->img_ptr = NULL;
 	new_fdf->content = NULL;
 	new_fdf->mlx_ptr = mlx_init();
+	new_fdf->columns = 0;
+	new_fdf->lines = 0;
 	if (!new_fdf->mlx_ptr)
 		return (free(new_fdf), NULL);
 	new_fdf->win_ptr = mlx_new_window(new_fdf->mlx_ptr,
