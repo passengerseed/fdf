@@ -6,7 +6,7 @@
 /*   By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/08 14:29:57 by lrouchon          #+#    #+#             */
-/*   Updated: 2026/05/08 15:51:30 by lrouchon         ###   ########.fr       */
+/*   Updated: 2026/05/08 17:55:25 by lrouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,20 @@
 
 static int	check_map(char *path)
 {
-	if (access(path, F_OK | O_RDONLY) == -1)
+	char	*tmp;
+	int		fd;
+
+	tmp = ft_strrchr(path, '.');
+	if (!tmp)
 		return (-1);
-	return (0);
+	if (ft_strcmp(tmp, ".fdf"))
+		return (-1);
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return (-1);
+	if (read(fd, NULL, 0) == -1)
+		return (close(fd), -1);
+	return (close(fd), 0);
 }
 
 void	error(char *error_str)
@@ -58,6 +69,8 @@ int	main(int argc, const char **argv)
 		return (exit_free(fdf_struct),
 			error("couldn't initialize mlx"), EXIT_FAILURE);
 	draw_image(fdf_struct);
+	mlx_hook(fdf_struct->win_ptr, DestroyNotify, 0, (void *)exit_free,
+		(void *)fdf_struct);
 	mlx_mouse_hook(fdf_struct->win_ptr, deal_mouse, (void *)fdf_struct);
 	mlx_key_hook(fdf_struct->win_ptr, deal_key, (void *)fdf_struct);
 	mlx_loop(fdf_struct->mlx_ptr);

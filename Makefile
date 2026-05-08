@@ -6,12 +6,12 @@
 #    By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/08 14:29:59 by lrouchon          #+#    #+#              #
-#    Updated: 2026/05/08 16:28:43 by lrouchon         ###   ########.fr        #
+#    Updated: 2026/05/08 17:56:55 by lrouchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -Wincompatible-pointer-types
+CFLAGS = -Wall -Wextra -Werror -g3
 
 LFLAGS = -L -lmlx -lXext -lX11
 

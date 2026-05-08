@@ -6,7 +6,7 @@
 /*   By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 17:52:59 by lrouchon          #+#    #+#             */
-/*   Updated: 2026/05/08 16:46:47 by lrouchon         ###   ########.fr       */
+/*   Updated: 2026/05/08 18:56:43 by lrouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,9 @@ int	map_loop(int fd, int i, t_fdf *fdf_struct)
 	if (line[ft_strlen(line) - 1] == '\n')
 		line[ft_strlen(line) - 1] = '\0';
 	split_line = ft_split(line, ' ');
-	if (!split_line)
-		return (free(line), drain_gnl_fd(fd),
-			close(fd), clear_map(fdf_struct), -1);
 	fdf_struct->content[i] = ft_calloc(sizeof(t_point *),
 			fdf_struct->columns + 1);
-	if (!fdf_struct->content[i])
+	if (!fdf_struct->content[i] || !split_line)
 		return (free(line), ft_freearr(split_line),
 			drain_gnl_fd(fd), close(fd), clear_map(fdf_struct), -1);
 	j = -1;
@@ -56,8 +53,6 @@ int	init_map(char *path, t_fdf *fdf_struct)
 	if (!fdf_struct->content)
 		return (-1);
 	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		return (clear_map(fdf_struct), -1);
 	i = 0;
 	while (i < fdf_struct->lines)
 	{

@@ -6,7 +6,7 @@
 /*   By: lrouchon <lrouchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/08 14:29:53 by lrouchon          #+#    #+#             */
-/*   Updated: 2026/05/08 16:29:31 by lrouchon         ###   ########.fr       */
+/*   Updated: 2026/05/08 18:51:06 by lrouchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <string.h>
 # include <errno.h>
 # include <math.h>
+# include <X11/X.h>
 # include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
 
